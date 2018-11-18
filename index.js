@@ -1,22 +1,38 @@
 // Code your solution in this file!
-const returnFirstTwoDrivers = function(array){
-  const newArray = []
-  newArray.push(array[0])
-  newArray.push(array[1])
-  return newArray
+const logDriverNames = function (array) {
+  array.forEach(function(el, i, arr) {
+    console.log(el.name);
+  });
 }
- const returnLastTwoDrivers = function(array){
-  const newArray = []
-  newArray.push(array[array.length - 2])
-  newArray.push(array[array.length - 1])
-  return newArray
+ const logDriversByHometown = function (array, hometown) {
+  let new_array = array.filter(x => x.hometown == hometown);
+  new_array.forEach(function(el, i, arr) {
+    console.log(el.name);
+  });
 }
- selectingDrivers = [returnFirstTwoDrivers, returnLastTwoDrivers]
- function createFareMultiplier(integer){
-  return function(fare){return fare * integer}
+ const driversByRevenue = function (array) {
+  let new_array = [...array];
+    return new_array.sort(function (num1, num2) {
+    return num1.revenue - num2.revenue;
+  });
 }
- const fareDoubler = createFareMultiplier(2)
- const fareTripler = createFareMultiplier(3)
- function fetchSpecifiedDrivers(array, eitherFunction){
-  return eitherFunction(array)
+ const driversByName = function (array) {
+  let new_array = [...array];
+    return new_array.sort(function (num1, num2) {
+    return num1.name.localeCompare(num2.name);
+  });
 }
+const total = function (agg, el, i, arr) {
+  if (i === arr.length - 1) {
+    return agg.totalPrice + el.revenue;
+  }
+  return {
+    totalPrice: agg.totalPrice + el.revenue
+  };
+};
+ const totalRevenue = function (array) {
+  return array.reduce(total, {totalPrice: 0});
+};
+ const averageRevenue = function (array) {
+  return totalRevenue(array)/array.length;
+};
